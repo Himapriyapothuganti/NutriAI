@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nutrition Result</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Consistent styling */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      width: 100%;
+      backdrop-filter: blur(10px);
+      animation: slideUp 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    h1 {
+      color: #1a4d2e;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    h1 i {
+      color: #4CAF50;
+      font-size: 1.8rem;
+    }
+
+    /* Scrollable Cards */
+    .card {
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      max-height: 400px; /* Fixed height for scrolling */
+    }
+
+    .card-header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    /* Question Card */
+    .question-card {
+      border-left: 4px solid #4CAF50;
+      background: #f8fff8;
+    }
+
+    .question-header {
+      font-weight: 700;
+      color: #1a4d2e;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .question-header i {
+      color: #4CAF50;
+    }
+
+    .question-text {
+      font-size: 1.1rem;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Answer Card */
+    .answer-card {
+      border-left: 4px solid #66bb6a;
+      background: #f4faf4;
+    }
+
+    .answer-header {
+      font-weight: 700;
+      color: #2e7d32;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .answer-header i {
+      color: #66bb6a;
+    }
+
+    .answer-text {
+      font-size: 1rem;
+      color: #444;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+
+    .answer-text ul {
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+    }
+
+    .answer-text li {
+      margin-bottom: 0.5rem;
+      position: relative;
+      padding-left: 1rem;
+    }
+
+    .answer-text li:before {
+      content: "•";
+      color: #4CAF50;
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+
+    .answer-text strong {
+      color: #1b5e20;
+      font-weight: 600;
+    }
+
+    /* Custom Scrollbar */
+    .card-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .card-content::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+    .card-content::-webkit-scrollbar-thumb {
+      background: #c8e6c9;
+      border-radius: 4px;
+    }
+
+    .card-content::-webkit-scrollbar-thumb:hover {
+      background: #a5d6a7;
+    }
+
+    /* Back Link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 1rem;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    }
+
+    .back-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 20px rgba(76, 175, 80, 0.4);
+      background: linear-gradient(135deg, #45a049 0%, #39843e 100%);
+    }
+
+    .back-link i {
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>
+      <i class="fas fa-robot"></i>
+      NutriAI Analysis
+    </h1>
+
+    <!-- Question Card -->
+    <div class="card question-card">
+      <div class="card-header question-header">
+        <i class="fas fa-question-circle"></i>
+        Your Question
+      </div>
+      <div class="card-content question-text">
+        <strong><%= question %></strong>
+      </div>
+    </div>
+
+    <!-- Answer Card -->
+    <div class="card answer-card">
+      <div class="card-header answer-header">
+        <i class="fas fa-comment-medical"></i>
+        AI Nutrition Advice
+      </div>
+      <div class="card-content answer-text">
+        <%- answer.replace(/\n/g, '<br>') %>
+      </div>
+    </div>
+
+    <a href="/" class="back-link">
+      <i class="fas fa-arrow-left"></i>
+      Ask Another Question
+    </a>
+  </div>
+</body>
+</html>
