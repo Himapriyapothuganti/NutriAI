@@ -41,10 +41,7 @@ To run this project locally, follow these steps:
 - **EJS** for templating.
 - **Groq SDK** for AI-powered responses.
 - **LLaMA3** model for AI-based nutrition advice.
-
-## License
-This project is licensed under the MIT License.
-
+  
 ## Acknowledgments
 - Thanks to Groq for providing the AI API.
 - Inspiration from various health and nutrition websites.
